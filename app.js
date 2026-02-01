@@ -12,7 +12,7 @@ app.use(express.static('public'));
 
 // Define our main route ('/')
 app.get('/', (req, res) => {
-    res.sendFile(`${import.meta.dirname}/views/index.html`);
+    res.sendFile(`${import.meta.dirname}/views/home.html`);
 });
 
 // Start server and listed on designed port
