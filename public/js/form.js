@@ -20,21 +20,42 @@ document.getElementById("contact-form").onsubmit = () => {
 
     //validate linkedin
     let linkedin = document.getElementById("linkedin").value.trim();
-    if(!linkedin) {
+    let linkedinPrefix = "https://linkedin.com/in/";
+
+    if (linkedin && !linkedin.startsWith(linkedinPrefix)) {
         document.getElementById("err-url").style.display = "block";
         isValid = false;
     }
 
     //validate email address
     let email = document.getElementById("email").value.trim();
-    if(!email) {
-        document.getElementById("err-email").style.display = "block";
-        isValid = false;
+    let mailingListChecked = document.getElementById("mailing-list").checked;
+
+    //if maillist is checked
+    if (mailingListChecked) {
+        if (!email) {
+            document.getElementById("err-email").textContent =
+                "Email is required to join the mailing list!";
+            document.getElementById("err-email").style.display = "block";
+            isValid = false;
+        } else if (!email.includes("@") || !email.includes(".")) {
+            document.getElementById("err-email").textContent =
+                "Please enter a valid email address!";
+            document.getElementById("err-email").style.display = "block";
+            isValid = false;
+        }
+    } else {
+        if (email && (!email.includes("@") || !email.includes("."))) {
+            document.getElementById("err-email").textContent =
+                "Please enter a valid email address!";
+            document.getElementById("err-email").style.display = "block";
+            isValid = false;
+        }
     }
 
      //validate how
     let how = document.getElementById("how").value;
-    if(how == "none") {
+    if(!how) {
         document.getElementById("err-how").style.display = "block";
         isValid = false;
     }
