@@ -9,32 +9,34 @@
     <link rel="icon" href="images/cf.png">
     <!-- stylesheet -->
     <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/nav.css">
     <!-- javascript -->
      <script src="js/form.js" defer></script>
 
 </head>
 <body>
+    <%- include('partials/navbar') %>
     <main class="container">
         <h1>Contact Form</h1>
 
         <form id="contact-form" action="/submit-form" method="POST">
             <div class="grid">
                 <div>
-                    <label for="firstName"><strong>First Name</strong>
+                    <label for="fname"><strong>First Name</strong>
                         <span class="err" id="err-fname">
                             First name is required!
                         </span>
                     </label>
-                    <input id="firstName" name="firstName" type="text">
+                    <input id="fname" name="fname" type="text">
                 </div>
 
                 <div>
-                    <label for="lastName"><strong>Last Name</strong>
+                    <label for="lname"><strong>Last Name</strong>
                         <span class="err" id="err-lname">
                             Last name is required!
                         </span>
                     </label>
-                    <input id="lastName" name="lastName" type="text">
+                    <input id="lname" name="lname" type="text">
                 </div>
 
                 <div>

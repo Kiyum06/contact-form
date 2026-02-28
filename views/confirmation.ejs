@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation</title>
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="styles/nav.css">
+    
+</head>
+<body>
+    <%- include('partials/navbar') %>
+    <h1>Thank you for the submission, <%= submission.lname %>!</h1>
+    
+    <h2>Submission Details:</h2>
+    <p>Name: <%= submission.fname %> <%= submission.lname %></p>
+    <p>Job Title: <%= submission.jobTitle %></p>
+    <p>Company: <%= submission.company %></p>
+    <p>LinkedIn: <%= submission.linkedin %></p>
+    <p>Email: <%= submission.email %></p>
+    <p>How did we meet?: <%= submission.how %></p>
+    <p>Other: <%= submission.other %></p>
+    <p>Message: <%= submission.message %></p>
+    <p>Date/Time: <%= submission.timestamp.toLocaleString() %></p>
+
+    <a href="/" role="button">Home</a>
+</body>
+</html>

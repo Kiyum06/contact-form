@@ -84,3 +84,32 @@ button{
     text-decoration: underline;
     color: darkgoldenrod;
 }
+
+
+/* Navbar container */
+.nav {
+    background-color: #1f2937;   /* dark gray */
+    padding: 12px 20px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+/* Navbar links */
+.nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    font-family: Arial, sans-serif;
+    transition: color 0.2s ease;
+}
+
+/* Hover effect */
+.nav a:hover {
+    color: #60a5fa;   /* soft blue */
+}
+
+/* Optional: small separator line */
+hr {
+    margin: 0;
+}

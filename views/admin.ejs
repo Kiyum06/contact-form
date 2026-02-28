@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="styles/nav.css">
+
+    <!-- Scripts -->
+    <script src="//code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="//cdn.datatables.net/2.3.7/js/dataTables.js"></script>
+    <script src="//cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.min.js"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="//cdn.datatables.net/2.3.7/css/dataTables.dataTables.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/responsive/3.0.2/css/responsive.dataTables.min.css">
+</head>
+<body>
+    <%- include('partials/navbar') %>
+    <h1>Submission Summary</h1>
+
+    <% if (submissions.length === 0) { %>
+        <p>No contacts to display yet.</p>
+    <% } else { %>
+
+        <table id="submission-table" class="display">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Job Title</th>
+                    <th>Company</th>
+                    <th>LinkedIn</th>
+                    <th>Email</th>
+                    <th>How we met</th>
+                    <th>Other</th>
+                    <th>Message</th>
+                    <th>Timestamp</th>                                
+                </tr>
+            </thead>
+            <tbody>
+        <% submissions.forEach(submission => { %>
+            <tr>
+                <td><%= submission.fname %> <%= submission.lname %></td>
+                <td><%= submission.jobTitle %></td>
+                <td><%= submission.company %></td>
+                <td><%= submission.linkedin %></td>
+                <td><%= submission.email %></td>
+                <td><%= submission.how %></td>
+                <td><%= submission.other %></td>
+                <td><%= submission.message %></td>
+                <td><%= submission.timestamp.toLocaleString() %></td>
+            </tr>
+        <% }) %>
+            </tbody>    
+        </table>
+    <% } %>
+
+    <% if (submissions.length > 0) { %>
+        <script>
+            new DataTable('#submission-table', {
+                responsive: true
+            });
+        </script>
+    <% } %>
+</body>
+</html>

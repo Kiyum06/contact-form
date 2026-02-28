@@ -10,25 +10,30 @@ const PORT = 3005;
 // Enable static file serving 
 app.use(express.static('public'));
 
-// Define main route ('/')
-app.get('/', (req, res) => {
-    res.sendFile(`${import.meta.dirname}/views/home.html`);
-});
-
-// Define confirmation route ('/')
-app.get('/confirmation', (req, res) => {
-    res.sendFile(`${import.meta.dirname}/views/confirmation.html`);
-});
-
-//create a temp array to store submission
-const submissions = [];
+// Set EJS as the view engine
+app.set('view engine', 'ejs');
 
 // form data and store it in req.body 
 app.use(express.urlencoded({extended: true}));
 
+//create a temp array to store submission
+const submissions = [];
+
+// Define main route ('/')
+app.get('/', (req, res) => {
+    res.render('home');
+});
+
+
+// Define contact form route ('/')
+ app.get('/contact', (req, res) => {
+     res.render('contact');
+ });
+
+
 // admin route ('/')
 app.get('/admin', (req, res) => {
-    res.send(submissions);
+    res.render('admin', { submissions });
 });
 
 // Define /sumbit-form route ('/')
@@ -51,7 +56,7 @@ app.post('/submit-form', (req, res) => {
     // Add submission object to submissions array 
     submissions.push(submission);
 
-    res.sendFile(`${import.meta.dirname}/views/confirmation.html`);
+    res.render('confirmation', { submission });
 });
 
 // Start server and listed on designed port
