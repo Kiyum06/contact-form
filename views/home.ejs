@@ -3,11 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Kiyum's Resume</title>
+
+    <!-- favicon -->
+    <link rel="icon" href="images/kiyum.jpeg">
+
     <!-- stylesheet -->
-    <link rel="stylesheet" href="styles/nav.css">
+     <link rel="stylesheet" href="styles/resume.css">
+     <link rel="stylesheet" href="styles/nav.css">
+
 </head>
 <body>
     <%- include('partials/navbar') %>
+    <main>
+
+        <!-- Header -->
+        <div class="header-center">
+            <h1>Md Kiyum</h1>
+        </div>
+
+        <header> 
+            <div class="header-left">
+                <p>KIYUM.MD@student.greenriver.edu</p>
+                <p>(253) 921-3339</p>
+                <p>www.linkedin.com/in/username</p>
+                <p><a href="https://www.github.com/kiyum06">github.com/kiyum06</a></p>
+            </div>
+
+            <div class="header-right">
+                <img src="images/kiyum.jpeg" alt="md kiyum"> 
+            </div>
+       </header>
+
+       <!-- Summary -->
+        <section class="summary">
+            <h2>Summary</h2>
+            <p>
+                I'm a software development student seeking a summer internship in web development for
+                e-commerce.
+            </p>
+        </section>
+
+
+    <!-- Education -->
+    <section>
+      <h2>Education</h2>
+
+      <div class="row">
+        <div>
+          <strong>Green River College</strong> - Auburn, WA
+        </div>
+        <div class="right">
+          2022 to Present
+        </div>
+      </div>
+
+      <p>Bachelor of Applied Science, expected June 2027</p>
+      <p>Major: Software Development & Data Analytics</p>
+
+      <p><strong>Relevant Coursework:</strong></p>
+
+      <div class="two-column">
+        <ul>
+            <li>Data Science Foundation</li>
+            <li>Front-End Development</li>
+            <li>Web Programming with JavaScript</li>
+            <li>Python for Data Analytics</li>
+            <li>SQL for Data Analytics</li>
+        </ul>
+
+        <ul>
+            <li>IT Essentials</li>
+            <li>Java Foundations</li>
+            <li>Object Oriented Programming</li>
+            <li>Data Analytics Capstone</li>
+            <li>Database Fundamentals</li>
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- Skills -->
+    <section>
+      <h2>Skills and Certifications</h2>
+
+      <div class="two-column">
+        <ul>
+          <li><strong>Languages:</strong> Java, SQL, JavaScript</li>
+          <li><strong>Web:</strong> HTML/CSS, Bootstrap, jQuery, JSON</li>
+          <li><strong>Agile:</strong> Pair programming, working in sprints</li>
+        </ul>
+
+        <ul>
+          <li><strong>Tools:</strong> Git, Eclipse, Linux</li>
+          <li><strong>Databases:</strong>MySQL</li>
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- Experience -->
+    <section>
+      <h2>Experience</h2>
+
+      <div class="row">
+        <div>
+          <strong>IT Company</strong> – Seattle, WA<br />
+          <em>IT Assistant Intern</em>
+        </div>
+        <div class="right">
+          2025
+        </div>
+      </div>
+
+      <ul>
+        <li>Assisted users with basic technical issues</li>
+        <li>Performed basic troubleshooting for hardware and network problems</li>
+        <li>Helped maintain inventory of IT equipment.</li>
+      </ul>
+    </section>
+
+
+    </main>   
+    
 </body>
 </html>
