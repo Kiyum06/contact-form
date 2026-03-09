@@ -1,30 +1,20 @@
 import express from 'express';
 import mysql from 'mysql2';
 
-// Create an express application
 const app = express();
-
-// Define a port number where server will listen
 const PORT = 3005;
 
-// Enable static file serving
 app.use(express.static('public'));
-
-// Set EJS as the view engine
 app.set('view engine', 'ejs');
-
-// Parse form data
 app.use(express.urlencoded({ extended: true }));
 
-// MySQL connection
 const db = mysql.createConnection({
     host: '143.198.224.58',
     user: 'admin',
     password: 'adminpass0603',
-    database: 'contact_form_db',
+    database: 'contact_form_db'
 });
 
-// Connect to MySQL
 db.connect((err) => {
     if (err) {
         console.log('Database connection failed:', err);
@@ -33,46 +23,42 @@ db.connect((err) => {
     }
 });
 
-// Home route
 app.get('/', (req, res) => {
     res.render('home');
 });
 
-// Contact form route
 app.get('/contact', (req, res) => {
     res.render('contact');
 });
 
-// Admin route - get all submissions from database
 app.get('/admin', (req, res) => {
     const sql = 'SELECT * FROM forms ORDER BY timestamp DESC';
 
     db.query(sql, (err, results) => {
         if (err) {
             console.log('Error fetching submissions:', err);
-            return res.send('Error loading admin page');
+            return res.status(500).send('Error loading admin page');
         }
 
         res.render('admin', { submissions: results });
     });
 });
 
-// Submit form route
 app.post('/submit-form', (req, res) => {
     const { fname, lname, email, jobTitle, company, linkedin, how, other, message } = req.body;
 
     const sql = `
-        INSERT INTO forms 
+        INSERT INTO forms
         (fname, lname, email, jobTitle, company, linkedin, how, other, message)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     const values = [fname, lname, email, jobTitle, company, linkedin, how, other, message];
 
-    db.execute(sql, values, (err, result) => {
+    db.execute(sql, values, (err) => {
         if (err) {
             console.log('Error inserting submission:', err);
-            return res.send('Error saving form submission');
+            return res.status(500).send('Error saving form submission');
         }
 
         const submission = {
@@ -92,13 +78,9 @@ app.post('/submit-form', (req, res) => {
     });
 });
 
-// Start server
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on port ${PORT}`);
 });
-
-
-
 
 
 
