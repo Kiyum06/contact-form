@@ -8,16 +8,28 @@
     <!-- Favicon -->
     <link rel="icon" href="images/cf.png">
     <!-- stylesheet -->
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="styles/nav.css">
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/nav.css">
     <!-- javascript -->
-     <script src="js/form.js" defer></script>
+     <!-- <script src="js/form.js" defer></script> -->
 
 </head>
 <body>
     <%- include('partials/navbar') %>
     <main class="container">
         <h1>Contact Form</h1>
+
+        <!-- Display form error if they exist -->
+        <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+            <div class="server-errors">
+                <h3>Please fix these errors:</h3>
+                <ul>
+                    <% errors.forEach(error => { %>
+                        <li><%= error %></li>
+                    <% }) %>
+                </ul>
+            </div>
+        <% } %>
 
         <form id="contact-form" action="/submit-form" method="POST">
             <div class="grid">
@@ -75,10 +87,10 @@
                     </label>
                     <select id="how" name="how">
                         <option value="">Please select</option>
-                        <option>School</option>
-                        <option>Work</option>
-                        <option>Conference</option>
-                        <option>Online</option>
+                        <option value="School">School</option>
+                        <option value="Work">Work</option>
+                        <option value="Conference">Conference</option>
+                        <option value="Online">Online</option>
                     </select>
                 </div>
 
@@ -97,14 +109,14 @@
             <!-- checkbox -->
             <div class="options">
                 <label>
-                    <input type="checkbox" id="mailing-list"> <strong>Please add me to your mailing list</strong>
+                    <input type="checkbox" id="mailing-list" name="mailingList" value="yes"> <strong>Please add me to your mailing list</strong>
                 </label>
 
                 <!-- radio email option-->
                 <p>
                 <strong>Choose an email format:</strong>
-                <label><input type="radio" name="format"> <strong>HTML</strong></label>
-                <label><input type="radio" name="format"> <strong>Text</strong></label>
+                <label><input type="radio" name="format" value="HTML"> <strong>HTML</strong></label>
+                <label><input type="radio" name="format" value="Text"> <strong>Text</strong></label>
                 </p>
             </div>
 

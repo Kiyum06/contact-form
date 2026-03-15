@@ -1,10 +1,11 @@
 /* Navbar container */
 .nav {
-    background-color: #1f2937;   /* dark gray */
+    background-color: #1f2937;
     padding: 12px 20px;
     display: flex;
-    gap: 20px;
+    gap: 16px;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 /* Navbar links */
@@ -17,11 +18,36 @@
 }
 
 /* Hover effect */
-.nav a:hover {
-    color: #60a5fa;   /* soft blue */
+.nav a:hover,
+.nav a:focus {
+    color: #60a5fa;
 }
 
-/* Optional: small separator line */
 hr {
     margin: 0;
+}
+
+.logout-btn {
+    display: inline-block;
+    background-color: #e74c3c;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.logout-btn:hover,
+.logout-btn:focus {
+    background-color: #c0392b;
+    color: white;
+}
+
+/* Mobile layout */
+@media (max-width: 600px) {
+    .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
 }

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Page</title>
+
+    <!-- Styleshhet -->
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/nav.css">
+
+    <!-- Portfolio stylesheet -->
+    <link rel="stylesheet" href="/styles/portfolio.css">
+</head>
+<body>
+
+    <%- include('partials/navbar') %>
+
+    <main class="portfolio-container">
+        <section class="portfolio-hero">
+            <h1>My Portfolio</h1>
+            <p>
+                This page highlights my SDEV 305 & SDEV 301 projects and the technologies I used
+                to build them.
+            </p>
+        </section>
+
+        <section class="portfolio-section">
+            <h2>SDEV 305 Projects</h2>
+
+            <article class="project-card">
+                <h3>Contact Form Application</h3>
+
+                <p>
+                    <strong>Technologies used:</strong>
+                    HTML, CSS, JavaScript, Node.js, Express, EJS, and MySQL.
+                </p>
+
+                <p>
+                    <strong>My role:</strong>
+                    I designed the user interface, created the form structure,
+                    handled form submission on the server side, and connected the
+                    project to the database to save user information.
+                </p>
+
+                <div class="project-image-box">
+                    <img src="/images/contact.png"
+                         alt="Screenshot of the Contact Form application showing form fields and page layout">
+                </div>
+
+                <p class="project-links">
+                    <strong>GitHub Repo: </strong> <a href="https://github.com/Kiyum06/contact-form" target="_blank">
+                        https://github.com/Kiyum06/contact-form</a>
+                </p>
+            </article>
+
+            <article class="project-card">
+                <h3>Game Log Application</h3>
+
+                <p>
+                    <strong>Technologies used:</strong>
+                    HTML, CSS, JavaScript, Node.js, Express, EJS, and MySQL.
+                </p>
+
+                <p>
+                    <strong>My role:</strong>
+                    I worked on styling some part of the web pages, setting up some routes and contribute for 
+                    designing the navigation bar.
+                </p>
+
+                <div class="project-image-box">
+                    <img src="/images/gamelog.png"
+                         alt="Screenshot of the Game Log project add-game page and navigation">
+                </div>
+
+                <p class="project-links">
+                    <strong>GitHub Repo: </strong> <a href="https://github.com/DennysSaenz123/game-log" target="_blank">
+                        https://github.com/DennysSaenz123/game-log</a>
+                </p>
+            </article>
+        </section>
+
+        <!-- SDEV 301 section -->
+        <section class="portfolio-section">
+            <h2>SDEV 301 Projects</h2>
+
+            <article class="project-card">
+                <h3>Collectathon: Collaborative GBA Game Project</h3>
+
+                <p>
+                    <strong>Technologies used:</strong>
+                    C++, Git, GitHub, Butano, mGBA emulator, GitHub Pages,
+                    VS Code, and Dev Containers.
+                </p>
+
+                <p>
+                    <strong>My role:</strong>
+                    I worked with a partner to develop and improve a game project
+                    while practicing collaborative Git and GitHub workflows. I helped
+                    make gameplay changes, resolve merge conflicts, test the game,
+                    and update project files such as the README and planning notes.
+                </p>
+
+                <p>
+                    <strong>Key contributions:</strong>
+                    I helped modify the player speed, change the background color,
+                    update the starting positions of the player and treasure, add
+                    a restart feature using the Start button, implement screen looping,
+                    and create a limited speed boost feature. I also participated in
+                    brainstorming, playtesting, polishing, and preparing the project
+                    for GitHub Pages.
+                </p>
+
+                <div class="project-image-box">
+                    <img src="/images/collectathon.png"
+                         alt="Screenshot of the Collectathon game running in the emulator with the player collecting items">
+                </div>
+
+                <p class="project-links">
+                    <strong>Github Repo: </strong><a href="https://github.com/Kiyum06/collectathon" target="_blank">
+                        https://github.com/Kiyum06/collectathon</a>
+                </p>
+                <p class="project-links">
+                    <strong>Live Demo: </strong><a href="https://kiyum06.github.io/collectathon/" target="_blank">
+                        https://kiyum06.github.io/collectathon/</a>
+                </p>
+            </article>
+        </section>
+    </main>
+
+</body>
+</html>

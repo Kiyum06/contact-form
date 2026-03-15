@@ -2,6 +2,8 @@
 import express from 'express';
 import mysql2 from 'mysql2';
 import dotenv from 'dotenv';
+import session from 'express-session';
+import { validateContactForm } from './validation.js';
 
 // Load the environment variables from .env file
 dotenv.config();
@@ -20,6 +22,13 @@ app.set('view engine', 'ejs');
 
 // form data and store it in req.body 
 app.use(express.urlencoded({extended: true}));
+
+// added session middleware
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false
+}));
 
 //create a temp array to store submission
 const submissions = [];
@@ -51,9 +60,14 @@ app.get('/', (req, res) => {
 
 
 // Define contact form route ('/')
- app.get('/contact', (req, res) => {
+app.get('/contact', (req, res) => {
      res.render('contact');
- });
+});
+
+// portfolio route
+app.get('/portfolio', (req, res) => {
+    res.render('portfolio');
+});
 
 
 // // admin route ('/')
@@ -61,11 +75,53 @@ app.get('/', (req, res) => {
 //     res.render('admin', { submissions });
 // });
 
-app.get('/admin', async (req, res) => {
-    try {
+// app.get('/admin', async (req, res) => {
+//     try {
         
+//         const [submissions] = await pool.query('SELECT * FROM forms ORDER BY timestamp DESC');  
+//         // Render the admin page
+//         res.render('admin', { submissions });        
+//     } catch (err) {
+//         console.error('Database error:', err);
+//         res.status(500).send('Error loading orders: ' + err.message);
+//     }
+// });
+
+app.get('/admin', (req, res) => {
+    if (req.session.isAdmin) {
+        return res.redirect('/admin/dashboard');
+    }
+
+    const error = req.session.error;
+    req.session.error = null;
+
+    res.render('admin-login', { error });
+});
+
+// checks username and password from .env
+app.post('/admin', (req, res) => {
+    const { username, password } = req.body;
+
+    if (
+        username === process.env.ADMIN_USERNAME &&
+        password === process.env.ADMIN_PASSWORD
+    ) {
+        req.session.isAdmin = true;
+        return res.redirect('/admin/dashboard');
+    }
+
+    req.session.error = 'Invalid username or password.';
+    res.redirect('/admin');
+});
+
+// protected admin page moved to /admin/dashboard
+app.get('/admin/dashboard', async (req, res) => {
+    if (!req.session.isAdmin) {
+        return res.redirect('/admin');
+    }
+
+    try {
         const [submissions] = await pool.query('SELECT * FROM forms ORDER BY timestamp DESC');  
-        // Render the admin page
         res.render('admin', { submissions });        
     } catch (err) {
         console.error('Database error:', err);
@@ -73,49 +129,35 @@ app.get('/admin', async (req, res) => {
     }
 });
 
-// // Define /sumbit-form route ('/')
-// app.post('/submit-form', (req, res) => {
 
-//     // create a json object to store the submission data
-//     const submission = {
-//         fname: req.body.fname,
-//         lname: req.body.lname,
-//         email: req.body.email,
-//         jobTitle: req.body.jobTitle,
-//         company: req.body.company,
-//         linkedin: req.body.linkedin,
-//         how: req.body.how,
-//         other: req.body.other,
-//         message: req.body.message,
-//         timestamp: new Date()
-//     };
+// admin logout route
+app.get('/admin/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.redirect('/admin');
+    });
+});
 
-//     // Add submission object to submissions array 
-//     submissions.push(submission);
-
-//     res.render('confirmation', { submission });
-// });
-
-
-// Confirmation route - handles form submission
 app.post('/submit-form', async (req, res) => {
 
     try {
-        // Get form data from req.body
-        const submission = req.body;        
+
+        // Call validation function
+        const { errors, submission } = validateContactForm(req.body);
+
+        // If validation fails
+        if (errors.length > 0) {
+            return res.status(400).render('contact', { errors });
+        }
 
         submission.timestamp = new Date();
-        
 
-        // Log the order data (for debugging)
         console.log('New form submitted:', submission);
 
+        const sql = `
+            INSERT INTO forms(fname, lname, jobTitle, company, linkedin, email, how, other, message) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+        `;
 
-        // SQL INSERT query with placeholders to prevent SQL injection
-        const sql = `INSERT INTO forms(fname, lname, jobTitle, company, linkedin, email, how, other, message) 
-                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);`;
-
-        
         const params = [
             submission.fname,
             submission.lname,
@@ -125,17 +167,18 @@ app.post('/submit-form', async (req, res) => {
             submission.email,
             submission.how,
             submission.other,
-            submission.message,
-
+            submission.message
         ];
-        // Execute the query and grab the primary key of the new row
+
         const result = await pool.execute(sql, params);
+
         console.log('Form saved with ID:', result[0].insertId);
-        // Render confirmation page with the adoption data
-        res.render('confirmation', { submission });        
+
+        res.render('confirmation', { submission });
+
     } catch (err) {
         console.error('Error saving form:', err);
-        res.status(500).send('Sorry, there was an error processing your submission. Please try again.');
+        res.status(500).send('Sorry, there was an error processing your submission.');
     }
 });
 

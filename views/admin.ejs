@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Page</title>
     <!-- stylesheet -->
-    <link rel="stylesheet" href="styles/nav.css">
+    <link rel="stylesheet" href="/styles/nav.css">
 
     <!-- Scripts -->
     <script src="//code.jquery.com/jquery-3.7.1.js"></script>
@@ -19,6 +19,8 @@
 <body>
     <%- include('partials/navbar') %>
     <h1>Submission Summary</h1>
+
+    
 
     <% if (submissions.length === 0) { %>
         <p>No contacts to display yet.</p>
@@ -63,5 +65,8 @@
             });
         </script>
     <% } %>
+
+    <p><a href="/admin/logout" class="logout-btn">Logout</a></p>
+    
 </body>
 </html>
